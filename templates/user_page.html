@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+<script type="text/javascript">
+function display_c(){
+var refresh=1000; // Refresh rate in milli seconds
+mytime=setTimeout('display_ct()',refresh)
+}
+
+function display_ct() {
+var x = new Date()
+var x1=x.getHours( )+ ":" +  x.getMinutes();
+document.getElementById('ct').innerHTML = x1;
+display_c();
+ }
+
+</script>
+
+</head>
+<body style="background-color: rgb(186, 236, 105)" onload=display_ct()>
+        <span id='ct' ></span>
+
+        <div class="label">
+                <h1> TODO App</h1>
+
+                <h3 class="mbr-section-subtitle align-center mbr-light pb-3 mbr-fonts-style display-1"><strong>
+                    Welcome back{{ username }}</strong></h3>
+
+                <form action="/user/add_task" method="post">
+                    <p><input type="text" name="content"></p>
+                    <input type="submit" value="Add task">
+                </form>
+               <a class="btn btn-sm btn-primary display-4" href="{{ url_for('user_logout',username = username) }}">
+            LOG OUT</a>
+
+
+
+                <ol>
+                    {% for task in tasks %}
+                        <li>
+                            {% if task['Done'] %} <strike> {% endif %}{{ task['TaskContent'] }} {% if task['Done'] %} </strike>{% endif %}
+                            <a href="/user/done/{{ task['TaskId'] }}">Done</a>
+                            <a href="/user/delete/{{ task['TaskId'] }}">Delete</a>
+                        </li>
+                    {% endfor %}
+                </ol>
+
+            </div>
+        <div>
+        <audio id="myAudio">
+
+          <source src="../static/music/music.mp3" type="audio/mpeg">
+          Your browser does not support the audio element.
+        </audio>
+
+        <p>Click the buttons to play or pause the audio.</p >
+        <button onclick="playAudio()" type="button">Play Audio</button>
+        <button onclick="pauseAudio()" type="button">Pause Audio</button>
+
+        <script>
+        var x = document.getElementById("myAudio");
+
+        function playAudio() {
+          x.play();
+        }
+
+        function pauseAudio() {
+          x.pause();
+        }
+        </script>
+        </div>
+
+
+    </body>
+
